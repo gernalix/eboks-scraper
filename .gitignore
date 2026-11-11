@@ -1,0 +1,11 @@
+# Never publish personal e-Boks exports, their contents or derived databases.
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.zip
+*.pdf
+data/
+exports/
+__pycache__/
+*.pyc

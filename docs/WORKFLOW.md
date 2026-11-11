@@ -22,6 +22,22 @@
    ```
 
    È **idempotente**: gli ZIP originali sono immutabili; la coppia `source_zip + entry_name` identifica ogni elemento; i checksum rilevano modifiche. PDF tramite `pdftotext`, HTML/TXT in testo; ciò che non è estraibile resta marcato `extracted=0`. SQLite conserva data dal nome del file, provenienza, testo e SHA-256. Nessun OCR automatico. Controllare `integrity=ok`.
+5bis. Eseguire il **controllo di copertura** prima di qualsiasi risposta negativa:
+
+   ```sh
+   python3 scripts/check_coverage.py --since 2026-10-11 --through 2026-11-11 \
+     --notification-at 2026-11-05T15:00:00+00:00
+   ```
+
+   Passare ogni data/ora di notifica Digital Post pertinente recuperata da Gmail.
+   `coverage_gate=BLOCK` (exit code 2) impedisce di dichiarare l'assenza di
+   appuntamenti: il controllo online è troppo vecchio, alcune notifiche sono
+   successive all'export, mancano documenti in SQLite oppure c'è testo non estratto.
+   `LOCAL_PRECHECK_OK` è **solo una condizione necessaria**: non dimostra che
+   la casella online sia stata letta integralmente né che ogni notifica
+   corrisponda a una specifica lettera archiviata. Verificare la corrispondenza
+   sulla UI ufficiale prima di dichiarare `SINCRONIZZAZIONE_EBOKS_VERIFICATA`.
+
 6. **Solo dopo la sincronizzazione**, interrogare con SQL/FTS5 ogni corpo testuale del mese, non soltanto i nomi file. Cercare la data dell'**appuntamento** nelle varianti danesi, italiane e numeriche (ad esempio `11. november 2026`, `11/11/2026`, `2026-11-11`, `onsdag den 11. november`), comprese date separate da interruzioni di riga o prive dell'anno. Non confondere data del documento, termine amministrativo e giorno dell'incontro.
 7. Aprire per intero **ogni lettera candidata** e controllare conferme, revoche, spostamenti e versioni successive. Un'ultima convocazione prevale su una vecchia solo se lo stesso caso/appuntamento è identificabile. Riportare esclusivamente appuntamenti confermati da e-Boks, con **orario, luogo, mittente, data e documento di origine**; segnalare quelli senza orario o con incertezza.
 8. Fornire il risultato con due stati distinti: `ARCHIVIO_VERIFICATO` e `SINCRONIZZAZIONE_EBOKS_VERIFICATA`. Una ricerca vuota nel solo SQLite non prova che non esistano nuove convocazioni online.
@@ -41,8 +57,7 @@ Si può usare `documents_fts MATCH 'indkaldelse OR samtale OR møde OR tid'` per
 
 - Archivio locale: ultimo import da ZIP il 3 novembre; l'ultimo documento esportato era del **27 ottobre 2026**.
 - Indice SQLite creato localmente con **559 elementi, 552 con testo estratto** e `PRAGMA integrity_check = ok`.
-- Sono visibili nella casella online **due lettere della psichiatria regionale del 5 novembre** non ancora incluse nell'archivio. Una risposta sui soli ZIP è pertanto **provvisoria** finché non sono state aperte/importate.
-- La lettera Jobcenter del 26 ottobre fissa il prossimo colloquio il **16 novembre 2026 alle 13:00** (non l'11).
+- Sono state rilevate **notifiche Digital Post più recenti dell'ultimo archivio**, non ancora riconciliate con gli ZIP. Una ricerca sui soli ZIP è **incompleta**.
 - Non dedurre appuntamenti e-Boks da Google Calendar: è una fonte differente.
 
 ## Verifica rapida dell'indice

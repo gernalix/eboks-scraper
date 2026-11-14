@@ -96,6 +96,36 @@ def sync(root: Path, db: Path) -> tuple[int, int, int]:
                         )
                         added += 1
                         unavailable += not extracted
+            # The official UI can save separate PDFs instead of a ZIP.
+            # The collector accepts both, so index verified top-level PDFs too.
+            for path in sorted(root.glob("posta-*/batch-*/*.pdf")):
+                relpath = str(path.relative_to(root))
+                section = path.relative_to(root).parts[0]
+                name = path.name
+                data = path.read_bytes()
+                digest = hashlib.sha256(data).hexdigest()
+                existing = connection.execute(
+                    "SELECT sha256 FROM documents WHERE source_zip=? AND entry_name=?",
+                    (relpath, name),
+                ).fetchone()
+                if existing:
+                    if existing[0] != digest:
+                        raise ValueError(f"Source PDF changed: {relpath}")
+                    skipped += 1
+                    continue
+                body, extracted = extract(name, data)
+                match = DATE_AT_START.match(name)
+                connection.execute(
+                    """INSERT INTO documents
+                    (section, source_zip, entry_name, received_date, format,
+                     body, sha256, extracted)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (section, relpath, name,
+                     match.group(1) if match else None,
+                     ".pdf", body, digest, extracted),
+                )
+                added += 1
+                unavailable += not extracted
             connection.execute("INSERT INTO documents_fts(documents_fts) VALUES ('rebuild')")
         integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
         if integrity != "ok":

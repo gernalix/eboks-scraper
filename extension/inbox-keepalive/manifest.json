@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "e-Boks Inbox Keepalive",
+  "version": "1.0.0",
+  "description": "Clicks an authenticated e-Boks inbox every minute; no local heartbeat host required.",
+  "permissions": ["alarms", "scripting", "tabs"],
+  "host_permissions": [
+    "https://e-boks.dk/*",
+    "https://*.e-boks.dk/*",
+    "https://eboks.dk/*",
+    "https://*.eboks.dk/*",
+    "https://e-boks.com/*",
+    "https://*.e-boks.com/*",
+    "https://eboks.com/*",
+    "https://*.eboks.com/*"
+  ],
+  "background": {"service_worker": "worker.js"},
+  "action": {"default_title": "Run e-Boks keepalive now"}
+}

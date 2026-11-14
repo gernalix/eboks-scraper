@@ -7,5 +7,11 @@
 *.pdf
 data/
 exports/
+# Sensitive per-user export state and UI inspection output (never version).
+progress.json
+report.json
+*.crdownload
+posta-pubblica/
+posta-aziende/
 __pycache__/
 *.pyc

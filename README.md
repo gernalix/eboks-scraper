@@ -20,7 +20,7 @@ Il primo comando è **solo diagnostico**; il secondo importa gli ZIP e i PDF loc
 ## Componenti versionati
 
 - `extension/ui-probe/`: **e-Boks On-Demand UI Probe** + Native Messaging Host; ispeziona i controlli della UI soltanto dopo attivazione nella tab autenticata. **Non scarica automaticamente lettere.**
-- `extension/inbox-keepalive/`: unico keepalive; codice corretto con alarm a 1 minuto e guardia UI, **testato localmente ma non ancora installato/verificato nel Chrome attuale**. La On-Demand UI Probe non svolge questa funzione.
+- `extension/inbox-keepalive/`: unico keepalive; alarm a 1 minuto e guardia UI, **installato in Chrome e verificato su un clic automatico il 14 novembre 2026**. La On-Demand UI Probe non svolge questa funzione.
 - `scripts/manage_export.py`: raccolta verificata in batch dei download ZIP/PDF e aggiornamento `progress.json`.
 - `scripts/import_archive.py`: indicizzazione idempotente ZIP/PDF → SQLite/FTS5.
 - `scripts/check_coverage.py`: controllo di completezza **locale**, fail-closed.

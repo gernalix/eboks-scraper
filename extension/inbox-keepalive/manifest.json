@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "e-Boks Inbox Keepalive",
   "version": "1.0.0",
-  "description": "Clicks the e-Boks inbox once per minute and reports a local heartbeat.",
-  "permissions": ["alarms", "scripting", "tabs", "nativeMessaging"],
+  "description": "Clicks an authenticated e-Boks inbox every minute; no local heartbeat host required.",
+  "permissions": ["alarms", "scripting", "tabs"],
   "host_permissions": [
     "https://e-boks.dk/*",
     "https://*.e-boks.dk/*",

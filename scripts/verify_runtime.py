@@ -10,8 +10,8 @@ COMPONENTS = {
     "ui_probe_manifest": ("extension/ui-probe/manifest.json", "Documents/ChatGPT/Chrome/.eboks-ondemand-probe/manifest.json"),
     "ui_probe_worker": ("extension/ui-probe/worker.js", "Documents/ChatGPT/Chrome/.eboks-ondemand-probe/worker.js"),
     "ui_probe_native_host": ("extension/ui-probe/native_host.py", "Documents/ChatGPT/Chrome/.eboks-ondemand-probe/native_host.py"),
-    "keepalive_manifest": ("extension/inbox-keepalive/manifest.json", "projects/eboks-scraper/extension/manifest.json"),
-    "keepalive_worker": ("extension/inbox-keepalive/worker.js", "projects/eboks-scraper/extension/worker.js"),
+    "keepalive_manifest": ("extension/inbox-keepalive/manifest.json", "projects/eboks-scraper-repo/extension/inbox-keepalive/manifest.json"),
+    "keepalive_worker": ("extension/inbox-keepalive/worker.js", "projects/eboks-scraper-repo/extension/inbox-keepalive/worker.js"),
     "archive_manager": ("scripts/manage_export.py", "Documents/e-Boks/full-export-2026-09-22/manage_export.py"),
 }
 
@@ -43,6 +43,19 @@ def inventory(repo: Path, home: Path) -> tuple[list[str], list[str]]:
     lines.append(f"probe_native_host_registered={registered}")
     if not registered:
         problems.append("Native Messaging Host not registered as expected")
+
+    # Source files being present does not prove the keepalive was loaded into Chrome.
+    prefs_path = home / ".config/google-chrome/Default/Preferences"
+    try:
+        prefs = json.loads(prefs_path.read_text())
+        extensions = prefs.get("extensions", {}).get("settings", {})
+        expected = str(home / COMPONENTS["keepalive_manifest"][1]).removesuffix("/manifest.json")
+        loaded = any(value.get("path") == expected for value in extensions.values())
+    except (OSError, ValueError, TypeError):
+        loaded = False
+    lines.append(f"keepalive_chrome_registered={loaded}")
+    if not loaded:
+        lines.append("keepalive_runtime=NOT_INSTALLED (code/tests do not prove live alarms)")
 
     archive = home / "Documents/e-Boks/full-export-2026-09-22"
     db = archive / "eboks.sqlite"

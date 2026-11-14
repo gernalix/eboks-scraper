@@ -20,7 +20,7 @@ Il primo comando è **solo diagnostico**; il secondo importa gli ZIP e i PDF loc
 ## Componenti versionati
 
 - `extension/ui-probe/`: **e-Boks On-Demand UI Probe** + Native Messaging Host; ispeziona i controlli della UI soltanto dopo attivazione nella tab autenticata. **Non scarica automaticamente lettere.**
-- `extension/inbox-keepalive/`: estensione storica separata, non downloader.
+- `extension/inbox-keepalive/`: unico keepalive; codice corretto con alarm a 1 minuto e guardia UI, **testato localmente ma non ancora installato/verificato nel Chrome attuale**. La On-Demand UI Probe non svolge questa funzione.
 - `scripts/manage_export.py`: raccolta verificata in batch dei download ZIP/PDF e aggiornamento `progress.json`.
 - `scripts/import_archive.py`: indicizzazione idempotente ZIP/PDF → SQLite/FTS5.
 - `scripts/check_coverage.py`: controllo di completezza **locale**, fail-closed.
@@ -28,4 +28,4 @@ Il primo comando è **solo diagnostico**; il secondo importa gli ZIP e i PDF loc
 
 **Stato al 14 novembre 2026:** SQLite integro, 559 elementi (ultimo 27 ottobre); almeno sei comunicazioni successive visibili online e **non ancora acquisite**. Nessun servizio/download automatico e-Boks verificato. Non inferire l'assenza di appuntamenti dai soli record locali.
 
-Eseguire i test mirati con `python3 -m unittest discover -s tests -v`. Ogni modificazione di estensioni deployate richiede validazione e aggiornamento esplicito, senza alterare il profilo Chrome durante MitID.
+Eseguire i test mirati con `python3 -m unittest discover -s tests -v` e `node tests/test_keepalive.js`. Ogni modificazione di estensioni deployate richiede validazione e aggiornamento esplicito, senza alterare il profilo Chrome durante MitID.

@@ -66,7 +66,7 @@ Si può usare `documents_fts MATCH 'indkaldelse OR samtale OR møde OR tid'` per
 ## Stato verificato il 14 novembre 2026
 
 - **ARCHIVIO_LOCALE:** `integrity_check=ok`, 559 record, 552 con testo estratto; massimo `received_date=2026-10-27`.
-- **PROBE:** installata e host registrato; `report.json` dell'08:23 mostrava zero checkbox da una pagina non utile a verificare i messaggi.
+- **PROBE:** installata e host registrato; `report.json` dell'08:23 mostrava zero checkbox da una pagina non utile a verificare i messaggi. **Non è il keepalive**; la funzione keepalive è implementata nell'estensione separata `Inbox Keepalive`, e non è ancora dimostrato che sia caricata nel Chrome reale.
 - **INBOX ONLINE:** tab autenticata `digitalpost.e-boks.dk/mailbox` visibile; almeno sei comunicazioni successive al documento più recente del database non ancora acquisite. Non registrare mittenti, oggetti o informazioni personali nei docs pubblici.
 - **SINCRONIZZAZIONE_EBOKS_VERIFICATA:** **NO**. Nessun nuovo ZIP scaricato/importato durante questa ricognizione.
 - **AZIONE RESIDUA:** acquisire contenuti originali dei sei messaggi dalla UI ufficiale, oltre a verificare la sezione aziende, importare, fare query su tutti i corpi e riconciliare convocazioni, annullamenti e scadenze. Non dichiarare `nessun appuntamento` sulla base del solo indice locale.

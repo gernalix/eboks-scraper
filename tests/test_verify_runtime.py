@@ -47,6 +47,8 @@ class RuntimeInventoryTests(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertIn("sqlite_integrity=ok", lines)
         self.assertIn("latest_indexed_received_date=2026-11-12", lines)
+        self.assertIn("keepalive_chrome_registered=False", lines)
+        self.assertTrue(any("keepalive_runtime=NOT_INSTALLED" in x for x in lines))
         self.assertTrue(any("online_inbox_freshness=UNVERIFIED" in x for x in lines))
 
     def test_component_drift_is_blocked(self):

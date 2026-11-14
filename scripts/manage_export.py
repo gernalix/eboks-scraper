@@ -48,7 +48,8 @@ def collect(args):
     if destination.exists():
         raise SystemExit('unrecorded_batch_requires_verification')
     deadline = time.monotonic() + args.timeout
-    while any(p.is_file() and p.name.endswith('.crdownload') for p in DOWNLOADS.iterdir()):
+    # Other Chrome downloads must not block a completed, explicitly named export.
+    while any((DOWNLOADS / (name + '.crdownload')).is_file() for name in (args.files or [])):
         if time.monotonic() >= deadline:
             raise SystemExit('crdownload_timeout')
         time.sleep(1)

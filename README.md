@@ -26,6 +26,6 @@ Il primo comando è **solo diagnostico**; il secondo importa gli ZIP e i PDF loc
 - `scripts/check_coverage.py`: controllo di completezza **locale**, fail-closed.
 - `scripts/verify_runtime.py`: mappa runtime/archivio e rilevamento drift codice installato, read-only.
 
-**Stato al 14 novembre 2026, dopo acquisizione incrementale:** sei nuove comunicazioni pubbliche esportate dalla UI ufficiale e importate (566 elementi locali, ultimo 12 novembre); nessuna novità nella sezione aziende. SQLite integro e import idempotente. Il controllo riguarda i nuovi messaggi dopo il 27 ottobre; l’export storico resta incompleto. Keepalive ancora in attesa di caricamento manuale in Chrome. Nessun servizio/download automatico e-Boks verificato.
+**Stato al 14 novembre 2026, dopo acquisizione incrementale:** sei nuove comunicazioni pubbliche esportate dalla UI ufficiale e importate (566 elementi locali, ultimo 12 novembre); nessuna novità nella sezione aziende. SQLite integro e import idempotente. Il controllo riguarda i nuovi messaggi dopo il 27 ottobre; l’export storico resta incompleto. Keepalive caricato dall’utente e verificato live: osservato il clic automatico `clickInboxInPage` sulla tab autenticata. Nessun servizio/download automatico e-Boks verificato.
 
 Eseguire i test mirati con `python3 -m unittest discover -s tests -v` e `node tests/test_keepalive.js`. Ogni modificazione di estensioni deployate richiede validazione e aggiornamento esplicito, senza alterare il profilo Chrome durante MitID.

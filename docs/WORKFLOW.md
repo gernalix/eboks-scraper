@@ -70,7 +70,7 @@ Si può usare `documents_fts MATCH 'indkaldelse OR samtale OR møde OR tid'` per
 - Confrontate le firme dei messaggi nuovi con il confine già archiviato del 27 ottobre. Sincronizzazione incrementale verificata per quel periodo; export storico ancora incompleto, nessun flag `complete` avanzato.
 - Il collector attende soltanto i `.crdownload` corrispondenti ai nomi espliciti richiesti: altri download Chrome non bloccano uno ZIP e-Boks già completo. Test di regressione verifica sia il blocco pertinente sia il download estraneo preservato.
 - Il controllo di copertura su un periodo anteriore al confine incrementale resta correttamente `BLOCK`; non estendere la conclusione all’intero archivio storico.
-- Il caricamento del keepalive è autorizzato dall’utente ma richiede la UI interna Chrome, non accessibile al tool browser. Installazione ed evento alarm restano da verificare.
+- Keepalive caricato dall’utente tramite la UI interna Chrome. Registrazione rilevata e clic automatico del timer osservato sulla Inbox autenticata (stack `clickInboxInPage`, 14 novembre ore 09:30 Copenhagen); osservatore diagnostico one-shot rimosso automaticamente al clic. La tab è lasciata aperta. Questo non garantisce durata illimitata della sessione server.
 
 ## Ricognizione precedente del 14 novembre 2026
 

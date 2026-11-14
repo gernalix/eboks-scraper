@@ -63,7 +63,16 @@ ORDER BY received_date DESC, entry_name;
 
 Si può usare `documents_fts MATCH 'indkaldelse OR samtale OR møde OR tid'` per restringere i candidati, **mai come unico filtro**, perché una convocazione può usare termini differenti. Il controllo finale esamina tutti i documenti del periodo.
 
-## Stato verificato il 14 novembre 2026
+## Acquisizione incrementale del 14 novembre 2026, successiva alla ricognizione
+
+- Sei nuovi messaggi pubblici esportati dalla UI ufficiale in batch 93: sei PDF e un file indice, tutti importati; nessun nuovo messaggio aziende (ordine per data decrescente verificato).
+- SQLite: 566 elementi, 559 con testo estratto, ultimo documento 12 novembre; integrità `ok`. Secondo import senza nuove righe.
+- Confrontate le firme dei messaggi nuovi con il confine già archiviato del 27 ottobre. Sincronizzazione incrementale verificata per quel periodo; export storico ancora incompleto, nessun flag `complete` avanzato.
+- Il collector attende soltanto i `.crdownload` corrispondenti ai nomi espliciti richiesti: altri download Chrome non bloccano uno ZIP e-Boks già completo. Test di regressione verifica sia il blocco pertinente sia il download estraneo preservato.
+- Il controllo di copertura su un periodo anteriore al confine incrementale resta correttamente `BLOCK`; non estendere la conclusione all’intero archivio storico.
+- Il caricamento del keepalive è autorizzato dall’utente ma richiede la UI interna Chrome, non accessibile al tool browser. Installazione ed evento alarm restano da verificare.
+
+## Ricognizione precedente del 14 novembre 2026
 
 - **ARCHIVIO_LOCALE:** `integrity_check=ok`, 559 record, 552 con testo estratto; massimo `received_date=2026-10-27`.
 - **PROBE:** installata e host registrato; `report.json` dell'08:23 mostrava zero checkbox da una pagina non utile a verificare i messaggi. **Non è il keepalive**; la funzione keepalive è implementata nell'estensione separata `Inbox Keepalive`, e non è ancora dimostrato che sia caricata nel Chrome reale.

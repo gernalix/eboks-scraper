@@ -2,6 +2,10 @@
 
 Aggiornato da verifiche dirette su Fedora, 14 novembre 2026. **Non confondere codice esistente, installazione, acquisizione completa e sincronizzazione online.**
 
+## Verifica successiva del 14 novembre 2026, ore 09:30 Copenhagen
+
+Inbox Keepalive è stato caricato dall’utente nel Chrome corrente dal percorso canonico. `verify_runtime.py` rileva `keepalive_chrome_registered=True`; un osservatore diagnostico temporaneo ha registrato il clic automatico Inbox con stack `clickInboxInPage`, poi si è rimosso. La tab autenticata resta aperta. Le indicazioni di mancata installazione nelle tabelle della ricognizione precedente qui sotto sono quindi superate. La sincronizzazione incrementale è completata per i nuovi messaggi dopo il 27 ottobre (dettagli in WORKFLOW); l’export storico resta incompleto.
+
 ## Source of truth
 
 **Unico repository Git canonico:** `gernalix/eboks-scraper`, branch `main`. Checkout operativo storico: `~/projects/eboks-scraper-repo` (eventuali worktree Git di task sono temporanei).
